@@ -48,6 +48,10 @@ public class FormHandler extends HttpServlet {
             resp.getWriter().write("<div style=\"background-color:red;color:white;padding:2%;\">ERROR: INVALID DATA</div>");
             return;
         }
+        if (author.isEmpty()) {
+            resp.getWriter().write("<div style=\"background-color:red;color:white;padding:2%;\">ERROR: INVALID DATA</div>");
+            return;
+        }
         data.add(new FormData(author, genres, customMessage));
 
         Iterator<String> knownAuthorsIterator = KNOWN_AUTHORS.iterator();
