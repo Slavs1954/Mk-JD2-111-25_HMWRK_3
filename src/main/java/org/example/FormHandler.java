@@ -18,10 +18,7 @@ import java.util.stream.Collectors;
 public class FormHandler extends HttpServlet {
 
     List<FormData> data = new ArrayList<>();
-
-    //final private Set<String> KNOWN_AUTHORS = new HashSet<>(Arrays.asList("MickGordon","America","Lyn", "Skillet"));
-    //final private Set<String> KNOWN_GENRES = new HashSet<>(Arrays.asList("Rock","Pop","Classical","Jazz","Folk","Other"));
-
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
