@@ -4,6 +4,7 @@ import dto.Stats;
 import dto.Vote;
 import service.api.IVoteService;
 import storage.VoteStorageRam;
+import storage.VoteStorageSQL;
 import storage.api.IVoteStorage;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class VoteService implements IVoteService {
-    private final IVoteStorage storage = new VoteStorageRam();
+    private final IVoteStorage storage = new VoteStorageSQL();
     private static VoteService instance = null;
     @Override
     public void add(Vote vote) {
@@ -36,7 +37,7 @@ public class VoteService implements IVoteService {
 
         List<Vote> all = storage.getAll();
         for (Vote vote : all) {
-            authorStats.compute(vote.getArtist(), (k,v) ->
+            authorStats.compute(vote.getAuthor(), (k, v) ->
                 v == null ? 1 : v + 1);
             for (String genre : vote.getGenres()) {
                 genresStats.compute(genre, (k,v) ->

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Vote {
     private LocalDateTime dateTimeCreate;
-    private String artist;
+    private String author;
     private List<String> genres;
     private String about;
 
@@ -13,8 +13,8 @@ public class Vote {
         return dateTimeCreate;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getAuthor() {
+        return author;
     }
 
     public List<String> getGenres() {
@@ -29,8 +29,8 @@ public class Vote {
         this.dateTimeCreate = dateTimeCreate;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setGenres(List<String> genres) {

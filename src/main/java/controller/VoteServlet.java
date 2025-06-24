@@ -35,7 +35,7 @@ public class VoteServlet extends HttpServlet {
 
         Vote result = new Vote();
         result.setDateTimeCreate(LocalDateTime.now());
-        result.setArtist(author[0]);
+        result.setAuthor(author[0]);
         result.setGenres(Arrays.asList(genres));
         result.setAbout(about);
         service.add(result);
