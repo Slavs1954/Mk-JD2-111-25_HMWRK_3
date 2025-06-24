@@ -58,7 +58,7 @@ public class VoteStorageSQL implements IVoteStorage {
         props.setProperty("ssl", "false");
         try (Connection conn = DriverManager.getConnection(url, props);
              PreparedStatement statement = conn.prepareStatement("""
-                    SELECT *
+                    SELECT dt_create, author, genres, about
                 	FROM vote_app.votes;
             """);) {
         try (ResultSet resultSet = statement.executeQuery();) {
