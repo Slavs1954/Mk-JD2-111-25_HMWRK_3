@@ -29,13 +29,18 @@ public class VoteStorageSQL implements IVoteStorage {
         props.setProperty("ssl", "false");
 
         try (Connection conn = DriverManager.getConnection(url, props);
-             Statement statement = conn.createStatement();
+             PreparedStatement statement = conn.prepareStatement("""
+                     INSERT INTO vote_app.votes(dt_create, author, genres, about)
+                     VALUES (?, ?, ?, ?);
+            """);
         ) {
 
-            statement.execute("""
-                INSERT INTO vote_app.votes(dt_create, author, genres, about)
-                	VALUES (now(), '%s', '%s', '%s');
-            """.formatted(vote.getAuthor(), conn.createArrayOf("varchar",vote.getGenres().toArray()), vote.getAbout()));
+            statement.setObject(1, vote.getDateTimeCreate());
+            statement.setObject(2, vote.getAuthor());
+            statement.setArray(3, conn.createArrayOf("varchar", vote.getGenres().toArray()));
+            statement.setObject(4, vote.getAbout());
+
+            statement.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
         }
