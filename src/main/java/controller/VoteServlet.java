@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.ServiceFactory;
 import service.VoteService;
 import service.api.IVoteService;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 
 @WebServlet(urlPatterns = "/vote")
 public class VoteServlet extends HttpServlet {
-    private final IVoteService service = VoteService.getInstance();
+    private final IVoteService service = ServiceFactory.getVoteService();
 
 
     @Override
@@ -33,12 +34,12 @@ public class VoteServlet extends HttpServlet {
         String[] genres = req.getParameterValues("genres");
         String about = req.getParameter("about");
 
-        Vote result = new Vote();
-        result.setDateTimeCreate(LocalDateTime.now());
-        result.setAuthor(author[0]);
-        result.setGenres(Arrays.asList(genres));
-        result.setAbout(about);
-        service.add(result);
+        service.add(Vote.builder()
+                .dtCreate(LocalDateTime.now())
+                .author(author[0])
+                .addGenreList(Arrays.asList(genres))
+                .about(about)
+                .build());
 
         resp.sendRedirect(req.getContextPath() + "/result");
     }

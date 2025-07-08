@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.ServiceFactory;
 import service.VoteService;
 import service.api.IVoteService;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/result")
 public class ResultServlet extends HttpServlet {
-    private final IVoteService service = VoteService.getInstance();
+    private final IVoteService service = ServiceFactory.getVoteService();
 
 
     @Override

@@ -2,6 +2,7 @@ package service;
 
 import dto.Stats;
 import dto.Vote;
+import service.api.IValidator;
 import service.api.IVoteService;
 import storage.VoteStorageRam;
 import storage.VoteStorageSQL;
@@ -13,20 +14,19 @@ import java.util.List;
 import java.util.Map;
 
 public class VoteService implements IVoteService {
-    private final IVoteStorage storage = new VoteStorageSQL();
-    private static VoteService instance = null;
+    private final IVoteStorage storage;
+    private final IValidator<Vote> validator;
     @Override
     public void add(Vote vote) {
+        if(validator != null) {
+            validator.validate(vote);
+        }
         this.storage.add(vote);
     }
 
-    private VoteService() {
-    }
-    public static VoteService getInstance() {
-        if (instance == null) {
-            instance = new VoteService();
-        }
-        return instance;
+    public VoteService(IVoteStorage storage, IValidator<Vote> validator) {
+        this.storage = storage;
+        this.validator = validator;
     }
 
     @Override
